@@ -2,8 +2,8 @@
  "meta": {
   "dNotUp": 34,
   "rNotUp": 31,
-  "asOf": "9:35 p.m. ET",
-  "updatedAt": "2026-11-04T02:35:00Z",
+  "asOf": "10:09 p.m. ET",
+  "updatedAt": "2026-11-04T03:09:00Z",
   "source": "NYT Live Forecast"
  },
  "races": {
@@ -15,11 +15,11 @@
    "status": "D",
    "leader": "Reed (D)",
    "leaderParty": "D",
-   "margin": "D +34",
-   "marginD": 34.0,
-   "pctIn": "84%",
+   "margin": "D +36",
+   "marginD": 36,
+   "pctIn": "93%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "MA": {
    "st": "MA",
@@ -29,11 +29,11 @@
    "status": "D",
    "leader": "Markey (D)",
    "leaderParty": "D",
-   "margin": "D +32",
-   "marginD": 32.0,
-   "pctIn": "9%",
+   "margin": "D +31",
+   "marginD": 31,
+   "pctIn": "20%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "DE": {
    "st": "DE",
@@ -43,11 +43,11 @@
    "status": "D",
    "leader": "Coons (D)",
    "leaderParty": "D",
-   "margin": "D +29",
-   "marginD": 29.0,
-   "pctIn": "68%",
+   "margin": "D +26",
+   "marginD": 26,
+   "pctIn": "92%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "CO": {
    "st": "CO",
@@ -57,11 +57,11 @@
    "status": "D",
    "leader": "Hickenlooper (D)",
    "leaderParty": "D",
-   "margin": "D +24",
-   "marginD": 24.0,
-   "pctIn": "55%",
+   "margin": "D +25",
+   "marginD": 25,
+   "pctIn": "78%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "NJ": {
    "st": "NJ",
@@ -71,11 +71,11 @@
    "status": "D",
    "leader": "Booker (D)",
    "leaderParty": "D",
-   "margin": "D +23",
-   "marginD": 23.0,
-   "pctIn": "64%",
+   "margin": "D +25",
+   "marginD": 25,
+   "pctIn": "82%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "VA": {
    "st": "VA",
@@ -86,10 +86,10 @@
    "leader": "Warner (D)",
    "leaderParty": "D",
    "margin": "D +23",
-   "marginD": 23.0,
-   "pctIn": "78%",
+   "marginD": 23,
+   "pctIn": "82%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "NM": {
    "st": "NM",
@@ -99,11 +99,11 @@
    "status": "D",
    "leader": "Luján (D)",
    "leaderParty": "D",
-   "margin": "D +22",
-   "marginD": 22.0,
-   "pctIn": "17%",
+   "margin": "D +23",
+   "marginD": 23,
+   "pctIn": "31%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "NC": {
    "st": "NC",
@@ -114,10 +114,10 @@
    "leader": "Cooper (D)",
    "leaderParty": "D",
    "margin": "D +20",
-   "marginD": 20.0,
-   "pctIn": "82%",
+   "marginD": 20,
+   "pctIn": "90%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "IL": {
    "st": "IL",
@@ -127,11 +127,11 @@
    "status": "D",
    "leader": "Stratton (D)",
    "leaderParty": "D",
-   "margin": "D +18",
-   "marginD": 18.0,
-   "pctIn": "37%",
+   "margin": "D +20",
+   "marginD": 20,
+   "pctIn": "56%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "GA": {
    "st": "GA",
@@ -141,11 +141,11 @@
    "status": "D",
    "leader": "Ossoff (D)",
    "leaderParty": "D",
-   "margin": "D +18",
-   "marginD": 18.0,
-   "pctIn": "81%",
+   "margin": "D +17",
+   "marginD": 17,
+   "pctIn": "87%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "NH": {
    "st": "NH",
@@ -156,10 +156,10 @@
    "leader": "Pappas (D)",
    "leaderParty": "D",
    "margin": "D +13",
-   "marginD": 13.0,
-   "pctIn": "43%",
+   "marginD": 13,
+   "pctIn": "58%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "OR": {
    "st": "OR",
@@ -170,38 +170,38 @@
    "leader": "Merkley (D)",
    "leaderParty": "D",
    "margin": "D +28",
-   "marginD": 28.0,
+   "marginD": 28,
    "pctIn": "0%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "TX": {
    "st": "TX",
    "label": "Texas",
    "name": "Texas",
-   "prob": 89,
+   "prob": 97,
    "status": "open",
    "leader": "Talarico (D)",
    "leaderParty": "D",
-   "margin": "D +7.7",
-   "marginD": 7.7,
-   "pctIn": "54%",
+   "margin": "D +8",
+   "marginD": 8.0,
+   "pctIn": "56%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "MN": {
    "st": "MN",
    "label": "Minn.",
    "name": "Minnesota",
-   "prob": 80,
+   "prob": 85,
    "status": "open",
    "leader": "Flanagan (D)",
    "leaderParty": "D",
-   "margin": "D +7.1",
-   "marginD": 7.1,
-   "pctIn": "1%",
+   "margin": "D +8.3",
+   "marginD": 8.3,
+   "pctIn": "3%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "MI": {
    "st": "MI",
@@ -211,11 +211,11 @@
    "status": "open",
    "leader": "El-Sayed (D)",
    "leaderParty": "D",
-   "margin": "D +7.1",
-   "marginD": 7.1,
-   "pctIn": "17%",
+   "margin": "D +6.8",
+   "marginD": 6.8,
+   "pctIn": "20%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "SC": {
    "st": "SC",
@@ -225,95 +225,95 @@
    "status": "open",
    "leader": "Andrews (D)",
    "leaderParty": "D",
-   "margin": "D +4.6",
-   "marginD": 4.6,
-   "pctIn": "82%",
+   "margin": "D +4.5",
+   "marginD": 4.5,
+   "pctIn": "89%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "OH": {
    "st": "OH",
    "label": "Ohio",
    "name": "Ohio",
-   "prob": 84,
+   "prob": 97,
    "status": "open",
    "leader": "Brown (D)",
    "leaderParty": "D",
-   "margin": "D +3.8",
-   "marginD": 3.8,
-   "pctIn": "59%",
+   "margin": "D +6.5",
+   "marginD": 6.5,
+   "pctIn": "73%",
    "special": true,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "ME": {
    "st": "ME",
    "label": "Maine",
    "name": "Maine",
-   "prob": 76,
+   "prob": 84,
    "status": "open",
    "leader": "Jackson (D)",
    "leaderParty": "D",
-   "margin": "D +3.0",
-   "marginD": 3.0,
-   "pctIn": "10%",
+   "margin": "D +3.9",
+   "marginD": 3.9,
+   "pctIn": "19%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "KS": {
    "st": "KS",
    "label": "Kan.",
    "name": "Kansas",
-   "prob": 67,
+   "prob": 93,
    "status": "open",
    "leader": "Hamilton (D)",
    "leaderParty": "D",
-   "margin": "D +2.6",
-   "marginD": 2.6,
-   "pctIn": "57%",
+   "margin": "D +4.3",
+   "marginD": 4.3,
+   "pctIn": "68%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "AK": {
    "st": "AK",
    "label": "Alaska",
    "name": "Alaska",
-   "prob": 55,
+   "prob": 57,
    "status": "open",
    "leader": "Peltola (D)",
    "leaderParty": "D",
-   "margin": "D +1.6",
-   "marginD": 1.6,
+   "margin": "D +1.8",
+   "marginD": 1.8,
    "pctIn": "0%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "IA": {
    "st": "IA",
    "label": "Iowa",
    "name": "Iowa",
-   "prob": 56,
+   "prob": 82,
    "status": "open",
    "leader": "Turek (D)",
    "leaderParty": "D",
-   "margin": "D +0.9",
-   "marginD": 0.9,
-   "pctIn": "21%",
+   "margin": "D +3.2",
+   "marginD": 3.2,
+   "pctIn": "32%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "NE": {
    "st": "NE",
    "label": "Neb.",
    "name": "Nebraska",
-   "prob": 38,
+   "prob": 36,
    "status": "open",
    "leader": "Ricketts (R)",
    "leaderParty": "R",
-   "margin": "R +2.1",
-   "marginD": -2.1,
-   "pctIn": "27%",
+   "margin": "R +2.3",
+   "marginD": -2.3,
+   "pctIn": "40%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z",
+   "updatedAt": "2026-11-04T03:09:00Z",
    "challenger": "Ind.",
    "indCountsD": true
   },
@@ -321,29 +321,29 @@
    "st": "MS",
    "label": "Miss.",
    "name": "Mississippi",
-   "prob": 31,
+   "prob": 41,
    "status": "open",
    "leader": "Hyde-Smith (R)",
    "leaderParty": "R",
-   "margin": "R +2.2",
-   "marginD": -2.2,
-   "pctIn": "30%",
+   "margin": "R +0.8",
+   "marginD": -0.8,
+   "pctIn": "57%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "LA": {
    "st": "LA",
    "label": "La.",
    "name": "Louisiana",
-   "prob": 11,
+   "prob": 7,
    "status": "open",
    "leader": "Letlow (R)",
    "leaderParty": "R",
-   "margin": "R +9.0",
-   "marginD": -9.0,
-   "pctIn": "15%",
+   "margin": "R +7.3",
+   "marginD": -7.3,
+   "pctIn": "45%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "TN": {
    "st": "TN",
@@ -353,11 +353,11 @@
    "status": "open",
    "leader": "Hagerty (R)",
    "leaderParty": "R",
-   "margin": "R +13",
-   "marginD": -13.0,
-   "pctIn": "64%",
+   "margin": "R +11",
+   "marginD": -11,
+   "pctIn": "82%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "AR": {
    "st": "AR",
@@ -367,11 +367,11 @@
    "status": "open",
    "leader": "Cotton (R)",
    "leaderParty": "R",
-   "margin": "R +14",
-   "marginD": -14.0,
-   "pctIn": "48%",
+   "margin": "R +12",
+   "marginD": -12,
+   "pctIn": "70%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "SD": {
    "st": "SD",
@@ -382,10 +382,10 @@
    "leader": "Rounds (R)",
    "leaderParty": "R",
    "margin": "R +15",
-   "marginD": -15.0,
-   "pctIn": "7%",
+   "marginD": -15,
+   "pctIn": "17%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "AL": {
    "st": "AL",
@@ -395,25 +395,25 @@
    "status": "open",
    "leader": "Moore (R)",
    "leaderParty": "R",
-   "margin": "R +16",
-   "marginD": -16.0,
-   "pctIn": "21%",
+   "margin": "R +13",
+   "marginD": -13,
+   "pctIn": "48%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "OK": {
    "st": "OK",
    "label": "Okla.",
    "name": "Oklahoma",
-   "prob": 3,
-   "status": "open",
+   "prob": 0,
+   "status": "R",
    "leader": "Hern (R)",
    "leaderParty": "R",
    "margin": "R +17",
-   "marginD": -17.0,
-   "pctIn": "65%",
+   "marginD": -17,
+   "pctIn": "81%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "ID": {
    "st": "ID",
@@ -424,10 +424,10 @@
    "leader": "Risch (R)",
    "leaderParty": "R",
    "margin": "R +20",
-   "marginD": -20.0,
+   "marginD": -20,
    "pctIn": "0%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "MT": {
    "st": "MT",
@@ -438,10 +438,10 @@
    "leader": "Alme (R)",
    "leaderParty": "R",
    "margin": "R +21",
-   "marginD": -21.0,
-   "pctIn": "0%",
+   "marginD": -21,
+   "pctIn": "<1%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "FL": {
    "st": "FL",
@@ -451,11 +451,11 @@
    "status": "R",
    "leader": "Moody (R)",
    "leaderParty": "R",
-   "margin": "R +3.1",
-   "marginD": -3.1,
+   "margin": "R +3",
+   "marginD": -3.0,
    "pctIn": ">95%",
    "special": true,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "KY": {
    "st": "KY",
@@ -465,11 +465,11 @@
    "status": "R",
    "leader": "Barr (R)",
    "leaderParty": "R",
-   "margin": "R +13",
-   "marginD": -13.0,
-   "pctIn": "88%",
+   "margin": "R +12",
+   "marginD": -12,
+   "pctIn": ">95%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "WV": {
    "st": "WV",
@@ -480,10 +480,10 @@
    "leader": "Capito (R)",
    "leaderParty": "R",
    "margin": "R +21",
-   "marginD": -21.0,
-   "pctIn": "88%",
+   "marginD": -21,
+   "pctIn": ">95%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   },
   "WY": {
    "st": "WY",
@@ -494,10 +494,10 @@
    "leader": "Hageman (R)",
    "leaderParty": "R",
    "margin": "R +33",
-   "marginD": -33.0,
+   "marginD": -33,
    "pctIn": "1%",
    "special": false,
-   "updatedAt": "2026-11-04T02:35:00Z"
+   "updatedAt": "2026-11-04T03:09:00Z"
   }
  }
 }

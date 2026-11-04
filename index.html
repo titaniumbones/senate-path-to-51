@@ -183,7 +183,7 @@ body{margin:0}
       <ol>
         <li>On the NYT Live Forecast page, under <i>Key Senate races</i>, click <i>Show all races</i>.</li>
         <li>Select from the page's “Last updated” line down through Wyoming, copy, and paste below.</li>
-        <li>Check the preview, then Apply. Races with a vote share but no win chance are treated as called.</li>
+        <li>Check the preview, then Apply. A line with one percentage and no win chance reads as a called race. When the NYT omits “votes in” for a race with no results yet, that can misfire, so confirm any flagged ⚠ line, and fix it by clicking the race after applying.</li>
       </ol>
       <textarea id="paste" placeholder="Last updated 9:35 p.m. E.T.&#10;Texas 54% 89% Dem. Talarico +7.7&#10;R.I. 84% Dem. Reed +34&#10;…"></textarea>
       <div class="preview" id="preview" hidden></div>
@@ -378,7 +378,7 @@ $("paste").addEventListener("input", () => {
   const races = state().races, lines = [];
   out.forEach((rec, st) => {
     const cur = races[st], ch = [];
-    if (cur.status !== rec.status) ch.push(`${cur.status==="open"?"open":"called "+cur.status} → ${rec.status==="open"?"open":"called "+rec.status}`);
+    if (cur.status !== rec.status) ch.push(`${cur.status==="open"?"open":"called "+cur.status} → ${rec.status==="open"?"open":"called "+rec.status}${cur.status==="open" && rec.status!=="open" ? "  ⚠ confirm the NYT shows a winner check mark" : ""}`);
     if (rec.status==="open" && Math.round(cur.prob) !== Math.round(rec.prob)) ch.push(`${fmtP(cur.prob)} → ${fmtP(rec.prob)}`);
     if (cur.pctIn !== rec.pctIn) ch.push(`${rec.pctIn} in`);
     if (ch.length) lines.push(`${cur.label.padEnd(8)} ${ch.join(" · ")}`);
