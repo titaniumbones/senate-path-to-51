@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Senate Path to 51</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one tall ranked column of all 35 seats, likeliest-Dem at top; a hard rule marks the 51st seat. Summary strip above, paste-to-update drawer below. */
+:root{
+  --bg:#f4f6f9; --surface:#ffffff; --fg:#141821; --muted:#5b6474; --faint:#8a93a3;
+  --line:#dde2ea; --track:#e7ebf1;
+  --dem:#2f62c8; --rep:#cf3f37; --ind:#a87a1c;
+  --dem-soft:#e3ebfa; --rep-soft:#f8e4e2;
+  --rule:#141821; --focus:#2f62c8;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12151b; --surface:#1a1e26; --fg:#e8ebf1; --muted:#a2aab8; --faint:#737c8c;
+  --line:#2b313c; --track:#262c37;
+  --dem:#4f84f0; --rep:#e5564b; --ind:#b48a2a;
+  --dem-soft:#1c2a47; --rep-soft:#3a2023; --rule:#e8ebf1; --focus:#6d9bff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151b; --surface:#1a1e26; --fg:#e8ebf1; --muted:#a2aab8; --faint:#737c8c;
+  --line:#2b313c; --track:#262c37;
+  --dem:#4f84f0; --rep:#e5564b; --ind:#b48a2a;
+  --dem-soft:#1c2a47; --rep-soft:#3a2023; --rule:#e8ebf1; --focus:#6d9bff; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:14px;line-height:1.45}
+.wrap{max-width:920px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+header h1{font-family:var(--f-display);font-stretch:72%;font-weight:800;font-size:clamp(30px,6vw,46px);line-height:1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+header p{margin:8px 0 0;color:var(--muted);max-width:64ch}
+.stamp{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:12px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--rep);box-shadow:0 0 0 3px var(--rep-soft)}
+.dot.idle{background:var(--faint);box-shadow:none}
+
+/* summary */
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.kpi{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.kpi .lab{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.kpi .val{font-family:var(--f-display);font-stretch:75%;font-weight:750;font-size:30px;line-height:1.05}
+.kpi .sub{font-size:12px;color:var(--muted)}
+.d{color:var(--dem)} .r{color:var(--rep)}
+@media (max-width:640px){.summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* seat strip */
+.seatstrip{display:flex;flex-direction:column;gap:6px}
+.strip{display:grid;grid-template-columns:repeat(100,1fr);gap:1px;height:14px;position:relative}
+.strip i{display:block;border-radius:1px;background:var(--track)}
+.strip i.cd{background:var(--dem)} .strip i.cr{background:var(--rep)}
+.strip i.ld{background:var(--dem);opacity:.38} .strip i.lr{background:var(--rep);opacity:.38}
+.strip .mid{position:absolute;left:calc(50.5% - 1px);top:-4px;bottom:-4px;width:2px;background:var(--rule)}
+.strip-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* chart */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 0 10px}
+.chart-head{display:grid;grid-template-columns:var(--cols);gap:12px;padding:6px 16px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:600;border-bottom:1px solid var(--line)}
+.chart{--cols:38px 176px minmax(0,1fr) 52px}
+.axis{display:flex;justify-content:space-between}
+.row{display:grid;grid-template-columns:var(--cols);gap:12px;align-items:center;padding:5px 16px;cursor:pointer;border:0;background:none;width:100%;text-align:left;color:inherit;font:inherit;position:relative}
+.row:hover,.row[aria-expanded="true"]{background:color-mix(in srgb,var(--fg) 4%,transparent)}
+.row:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.seat{font-size:12px;color:var(--faint);text-align:right}
+.seat.key{color:var(--fg);font-weight:600}
+.st{min-width:0;display:flex;flex-direction:column;line-height:1.2}
+.st b{font-weight:650;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st span{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{position:relative;height:18px;display:flex;gap:2px;min-width:0}
+.bar .seg{height:100%;min-width:0}
+.bar .seg.D{background:var(--dem);border-radius:4px 0 0 4px}
+.bar .seg.R{background:var(--rep);border-radius:0 4px 4px 0}
+.bar .seg.I{background:var(--ind);border-radius:4px 0 0 4px}
+.bar .seg.only{border-radius:4px}
+.bar.open .seg.R{opacity:.28}
+.bar.open .seg.D,.bar.open .seg.I{opacity:.95}
+.bar .half{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--faint);opacity:.7}
+.bar .chip{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:0 6px}
+.bar .chip.left{left:4px} .bar .chip.right{right:4px}
+.prob{text-align:right;font-size:13px;font-weight:600}
+.prob.called{font-family:var(--f-body);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.control{position:relative;margin:6px 0;padding:0 16px;display:flex;align-items:center;gap:10px}
+.control::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2.5px solid var(--rule)}
+.control span{position:relative;background:var(--surface);padding:2px 8px;font-family:var(--f-display);font-stretch:78%;font-weight:750;font-size:13px;letter-spacing:.03em;text-transform:uppercase}
+.control span.right{margin-left:auto;font-weight:600;color:var(--muted);font-size:11.5px}
+.control.up span:first-child{color:var(--dem)}
+@media (max-width:560px){.chart{--cols:28px 92px minmax(0,1fr) 44px}.row{gap:8px;padding:5px 12px}.chart-head{gap:8px;padding-inline:12px}.control span.right{display:none}}
+
+/* editor */
+.editor{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 14px;padding:12px 16px 14px 66px;background:color-mix(in srgb,var(--fg) 4%,transparent);border-bottom:1px solid var(--line)}
+@media (max-width:560px){.editor{padding-left:16px}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+input[type=text],input[type=number],select,textarea{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0;width:100%}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+input[type=range]{width:100%;accent-color:var(--dem)}
+.seg-btns{display:flex;gap:4px;flex-wrap:wrap}
+.seg-btns button,.btn{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:5px 10px;cursor:pointer}
+.seg-btns button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.editor .actions{display:flex;gap:8px;align-items:end;grid-column:1/-1}
+.msg{font-size:12px;color:var(--muted)}
+
+/* update drawer */
+details.update{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+details.update summary{cursor:pointer;padding:14px 16px;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+details.update summary::-webkit-details-marker{display:none}
+details.update summary small{font-weight:400;color:var(--muted)}
+.update-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
+.update-body ol{margin:0;padding-left:18px;color:var(--muted);font-size:13px}
+textarea{min-height:140px;font-family:var(--f-mono);font-size:12px;resize:vertical}
+.preview{font-size:12.5px;color:var(--muted);font-family:var(--f-mono);white-space:pre-wrap;max-height:220px;overflow:auto;border-left:2px solid var(--line);padding-left:10px}
+
+.notes{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px;max-width:72ch}
+.notes a{color:inherit}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+.tip{position:fixed;pointer-events:none;z-index:20;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:6px;max-width:260px;line-height:1.4;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.tip b{display:block;font-size:13px}
+@media (prefers-reduced-motion:no-preference){.bar .seg{transition:width .35s ease}}
+body{margin:0}
+[hidden]{display:none!important}
+.draftbar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:var(--surface);border:1px solid var(--fg);border-radius:10px;padding:10px 14px;position:sticky;top:8px;z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.draftbar b{font-weight:650}
+.draftbar .grow{flex:1 1 220px;min-width:0;color:var(--muted);font-size:13px}
+.draftbar input{max-width:260px}
+.newer{font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <h1>Senate Path to 51</h1>
+    <p>All 35 Senate seats on the ballot, ranked by the New York Times live forecast's chance of a Democratic win. Democrats hold 34 seats not up this year, so they need the top 17 here to reach 51. Republicans keep control at 50 with the vice president's tiebreak.</p>
+    <div class="stamp"><span class="dot idle" id="dot"></span><span id="stamp">Loading race data…</span></div>
+  </header>
+
+  <div class="draftbar" id="draftbar" hidden>
+    <span class="grow" id="draft-msg"><b>Unpublished changes</b> in this browser.</span>
+    <input type="password" id="gh-token" placeholder="GitHub token (first publish only)" autocomplete="off" hidden>
+    <button class="btn primary" id="publish">Publish to site</button>
+    <button class="btn" id="discard">Discard</button>
+  </div>
+
+  <section class="summary" aria-label="Summary">
+    <div class="kpi"><span class="lab">Called so far</span><span class="val"><span class="d" id="k-cd">–</span> <span style="color:var(--faint)">·</span> <span class="r" id="k-cr">–</span></span><span class="sub">Dem · Rep, incl. seats not up</span></div>
+    <div class="kpi"><span class="lab">Expected Dem seats</span><span class="val num" id="k-exp">–</span><span class="sub">34 + sum of win chances</span></div>
+    <div class="kpi"><span class="lab">Tipping-point seat</span><span class="val" id="k-tip">–</span><span class="sub" id="k-tip-sub">The 51st seat in rank order</span></div>
+    <div class="kpi"><span class="lab">Dems lead in</span><span class="val num" id="k-fav">–</span><span class="sub">seats incl. not up; 51 needed</span></div>
+  </section>
+
+  <section class="seatstrip" aria-label="All 100 seats">
+    <div class="strip" id="strip"></div>
+    <div class="strip-legend">
+      <span><span class="sw" style="background:var(--dem)"></span>Dem held or called</span>
+      <span><span class="sw" style="background:var(--dem);opacity:.38"></span>Dem favored</span>
+      <span><span class="sw" style="background:var(--rep);opacity:.38"></span>Rep favored</span>
+      <span><span class="sw" style="background:var(--rep)"></span>Rep held or called</span>
+      <span>Black tick: 51st seat</span>
+    </div>
+  </section>
+
+  <section class="chart" aria-label="Seats ranked by Democratic win chance">
+    <div class="chart-head"><span style="text-align:right">Seat</span><span>Race</span><span class="axis"><span>Dem 100%</span><span>50</span><span>Rep 100%</span></span><span style="text-align:right">Dem</span></div>
+    <div id="rows"><div class="empty" id="empty">Loading the 35 races…</div></div>
+  </section>
+
+  <details class="update" id="update">
+    <summary><span>Update from the NYT forecast</span><small>Paste the race table, review, apply</small></summary>
+    <div class="update-body">
+      <ol>
+        <li>On the NYT Live Forecast page, under <i>Key Senate races</i>, click <i>Show all races</i>.</li>
+        <li>Select from the page's “Last updated” line down through Wyoming, copy, and paste below.</li>
+        <li>Check the preview, then Apply. Races with a vote share but no win chance are treated as called.</li>
+      </ol>
+      <textarea id="paste" placeholder="Last updated 9:35 p.m. E.T.&#10;Texas 54% 89% Dem. Talarico +7.7&#10;R.I. 84% Dem. Reed +34&#10;…"></textarea>
+      <div class="preview" id="preview" hidden></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn primary" id="apply" disabled>Apply changes</button>
+        <span class="msg" id="apply-msg"></span>
+      </div>
+    </div>
+  </details>
+
+  <footer class="notes">
+    <span>Click any race to edit its chance or call it by hand. Edits stay in your browser until you publish them; the published version reloads every minute.</span>
+    <span>Nebraska: Dan Osborn is an independent; his win chance is shown in ochre and counted on the Democratic side of the line. Untick it in the Nebraska editor to count it otherwise.</span>
+    <span>“>95%” is stored as 97 and “&lt;5%” as 3 for ranking and the expected-seat sum. Ties are ordered by the NYT's estimated final margin.</span>
+    <span>Source: <a href="https://www.nytimes.com/interactive/2026/11/03/us/elections/results-needle-senate-house-forecast.html" target="_blank" rel="noopener">NYT Live Forecast</a> and <a href="https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html" target="_blank" rel="noopener">Senate results</a>; race calls from the AP via the NYT.</span>
+  </footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+
+<script>
+(() => {
+const REPO = { owner:"titaniumbones", repo:"senate-path-to-51", path:"data/races.json", branch:"main" };
+const STATES = {"Ala.":"AL","Alabama":"AL","Alaska":"AK","Ark.":"AR","Arkansas":"AR","Colo.":"CO","Colorado":"CO","Del.":"DE","Delaware":"DE","Fla.":"FL","Florida":"FL","Ga.":"GA","Georgia":"GA","Idaho":"ID","Ill.":"IL","Illinois":"IL","Iowa":"IA","Kan.":"KS","Kansas":"KS","Ky.":"KY","Kentucky":"KY","La.":"LA","Louisiana":"LA","Maine":"ME","Mass.":"MA","Massachusetts":"MA","Mich.":"MI","Michigan":"MI","Minn.":"MN","Minnesota":"MN","Miss.":"MS","Mississippi":"MS","Mont.":"MT","Montana":"MT","Neb.":"NE","Nebraska":"NE","N.H.":"NH","New Hampshire":"NH","N.J.":"NJ","New Jersey":"NJ","N.M.":"NM","New Mexico":"NM","N.C.":"NC","North Carolina":"NC","Ohio":"OH","Okla.":"OK","Oklahoma":"OK","Ore.":"OR","Oregon":"OR","R.I.":"RI","Rhode Island":"RI","S.C.":"SC","South Carolina":"SC","S.D.":"SD","South Dakota":"SD","Tenn.":"TN","Tennessee":"TN","Texas":"TX","Va.":"VA","Virginia":"VA","W.Va.":"WV","West Virginia":"WV","Wyo.":"WY","Wyoming":"WY"};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k,v); } catch(e){} }
+};
+
+let published = null;          // last data/races.json fetched
+let draft = null;              // this browser's unpublished edits, same shape
+try { draft = JSON.parse(store.get("senate51.draft") || "null"); } catch(e){ draft = null; }
+let openSt = null, pending = null;
+
+const state = () => draft || published || {meta:{dNotUp:34,rNotUp:31,asOf:""}, races:{}};
+const meta = () => state().meta;
+function ensureDraft(){ if (!draft) draft = JSON.parse(JSON.stringify(state())); return draft; }
+function saveDraft(){ store.set("senate51.draft", draft ? JSON.stringify(draft) : null); updateDraftBar(); }
+
+function dSide(r){
+  if (r.status === "D") return 100;
+  if (r.status === "R") return 0;
+  if (r.status === "I") return r.indCountsD === false ? 0 : 100;
+  return +r.prob || 0;
+}
+function fmtP(p){ return p >= 96 ? ">95%" : p <= 4 ? "<5%" : Math.round(p) + "%"; }
+function sorted(){
+  return Object.values(state().races).sort((a,b) => (dSide(b) - dSide(a)) || ((+b.marginD||0) - (+a.marginD||0)) || a.st.localeCompare(b.st));
+}
+
+function render(){
+  const list = sorted(), m = meta();
+  const need = 51 - m.dNotUp;
+  const cd = m.dNotUp + list.filter(r => dSide(r) === 100 && r.status !== "open").length;
+  const cr = m.rNotUp + list.filter(r => r.status === "R" || (r.status === "I" && r.indCountsD === false)).length;
+  const exp = m.dNotUp + list.reduce((s,r) => s + dSide(r)/100, 0);
+  const fav = m.dNotUp + list.filter(r => dSide(r) > 50).length;
+  $("k-cd").textContent = list.length ? cd : "–"; $("k-cr").textContent = list.length ? cr : "–";
+  $("k-exp").textContent = list.length ? exp.toFixed(1) : "–";
+  $("k-fav").textContent = list.length ? fav : "–";
+  const tip = list[need-1];
+  $("k-tip").textContent = tip ? tip.label : "–";
+  $("k-tip-sub").textContent = tip ? (tip.status === "open" ? fmtP(dSide(tip)) + " Dem chance" : "Called") + " · the 51st seat" : "The 51st seat in rank order";
+  setStamp();
+
+  const cells = [];
+  for (let i=0;i<m.dNotUp;i++) cells.push("cd");
+  list.forEach(r => { const p = dSide(r); cells.push(r.status!=="open" ? (p===100?"cd":"cr") : (p>50?"ld":"lr")); });
+  for (let i=0;i<m.rNotUp;i++) cells.push("cr");
+  $("strip").innerHTML = cells.map(c => `<i class="${c}"></i>`).join("") + `<span class="mid" style="left:calc(51% - 1px)"></span>`;
+
+  if (!list.length) return;
+  const html = [];
+  list.forEach((r, i) => {
+    const seatNo = m.dNotUp + i + 1;
+    const p = dSide(r), called = r.status !== "open";
+    const dCls = (r.challenger === "Ind." || r.status === "I") ? "I" : "D";
+    let bar;
+    if (called){
+      const w = r.status === "R" || (r.status==="I" && r.indCountsD===false) ? "R" : (r.status==="I" ? "I" : "D");
+      bar = `<div class="bar"><div class="seg ${w} only" style="width:100%"></div><span class="chip ${w==="R"?"right":"left"}">Called</span></div>`;
+    } else {
+      bar = `<div class="bar open"><div class="seg ${dCls}" style="width:calc(${p}% - 1px)"></div><div class="seg R" style="width:calc(${100-p}% - 1px)"></div><span class="half"></span></div>`;
+    }
+    const probTxt = called ? (r.status === "D" ? '<span class="d">Dem</span>' : r.status === "R" ? '<span class="r">Rep</span>' : 'Ind') : fmtP(p);
+    html.push(`<button class="row" data-st="${r.st}" aria-expanded="${openSt===r.st}">
+      <span class="seat num ${seatNo===51?"key":""}">${seatNo}</span>
+      <span class="st"><b>${esc(r.label)}${r.special?" †":""}</b><span>${esc(r.leader||"")}${r.margin?" "+esc(String(r.margin).replace(/^[DRI]\s*/,"")):""}${r.pctIn?" · "+esc(r.pctIn)+" in":""}</span></span>
+      ${bar}
+      <span class="prob num ${called?"called":""}">${probTxt}</span>
+    </button>`);
+    if (openSt === r.st) html.push(editorHTML(r));
+    if (i === need-1) html.push(`<div class="control up" role="separator"><span>▲ 51 seats · Dem control</span><span class="right">Below the line: Rep. hold with 50 + VP</span></div>`);
+  });
+  $("rows").innerHTML = html.join("");
+}
+
+function editorHTML(r){
+  const ind = r.challenger === "Ind.";
+  return `<div class="editor" data-ed="${r.st}">
+    <div class="field"><label for="e-prob">${ind?"Non-Rep":"Dem"} win chance (%)</label><input type="number" id="e-prob" min="0" max="100" step="1" value="${Math.round(+r.prob||0)}"></div>
+    <div class="field" style="grid-column:span 2"><label for="e-range">&nbsp;</label><input type="range" id="e-range" min="0" max="100" step="1" value="${Math.round(+r.prob||0)}"></div>
+    <div class="field" style="grid-column:span 2"><label>Status</label><div class="seg-btns" id="e-status">
+      ${["open","D","R"].concat(ind?["I"]:[]).map(s => `<button type="button" data-s="${s}" aria-pressed="${r.status===s}">${{open:"Not called",D:"Dem won",R:"Rep won",I:"Ind won"}[s]}</button>`).join("")}
+    </div></div>
+    <div class="field"><label for="e-leader">Leader</label><input type="text" id="e-leader" value="${esc(r.leader||"")}"></div>
+    <div class="field"><label for="e-margin">Est. margin</label><input type="text" id="e-margin" value="${esc(r.margin||"")}"></div>
+    <div class="field"><label for="e-pct">Votes in</label><input type="text" id="e-pct" value="${esc(r.pctIn||"")}"></div>
+    ${ind?`<div class="field"><label for="e-ind">Count Osborn win for Dems</label><input type="checkbox" id="e-ind" ${r.indCountsD!==false?"checked":""}></div>`:""}
+    <div class="actions"><button class="btn primary" id="e-save">Save</button><button class="btn" id="e-close">Close</button><span class="msg" id="e-msg"></span></div>
+  </div>`;
+}
+
+function signedMargin(m, r){
+  const s = String(m||"").trim(); const n = parseFloat((s.match(/[\d.]+/)||[0])[0]) || 0;
+  if (/^R\b/.test(s) || (!/^[DI]\b/.test(s) && r?.leaderParty === "R")) return -n;
+  return n;
+}
+
+$("rows").addEventListener("click", e => {
+  const row = e.target.closest(".row");
+  if (row){ openSt = openSt === row.dataset.st ? null : row.dataset.st; render(); if (openSt) $("e-prob")?.focus(); return; }
+  const ed = e.target.closest(".editor"); if (!ed) return;
+  const st = ed.dataset.ed;
+  const sb = e.target.closest("#e-status button");
+  if (sb){ ed.querySelectorAll("#e-status button").forEach(b => b.setAttribute("aria-pressed", b===sb)); return; }
+  if (e.target.id === "e-close"){ openSt = null; render(); return; }
+  if (e.target.id === "e-save"){
+    const d = ensureDraft(); const cur = d.races[st];
+    const patch = {
+      prob: Math.max(0, Math.min(100, +$("e-prob").value || 0)),
+      status: ed.querySelector('#e-status button[aria-pressed="true"]')?.dataset.s || "open",
+      leader: $("e-leader").value.trim(), margin: $("e-margin").value.trim(), pctIn: $("e-pct").value.trim()
+    };
+    patch.marginD = signedMargin(patch.margin, cur);
+    if ($("e-ind")) patch.indCountsD = $("e-ind").checked;
+    d.races[st] = {...cur, ...patch, updatedAt:new Date().toISOString()};
+    openSt = null; saveDraft(); render();
+  }
+});
+$("rows").addEventListener("input", e => {
+  if (e.target.id === "e-range") $("e-prob").value = e.target.value;
+  if (e.target.id === "e-prob") $("e-range").value = e.target.value;
+});
+
+// tooltip
+const tipEl = $("tip");
+$("rows").addEventListener("pointermove", e => {
+  const row = e.target.closest(".row"); if (!row){ tipEl.hidden = true; return; }
+  const r = state().races[row.dataset.st]; if (!r) return;
+  const p = dSide(r);
+  tipEl.innerHTML = `<b>${esc(r.name||r.label)}${r.special?" (special)":""}</b>${r.status==="open" ? `${r.challenger==="Ind."?"Osborn (Ind.)":"Dem"} chance ${fmtP(p)} · Rep ${fmtP(100-p)}` : "Called for " + ({D:"the Democrat",R:"the Republican",I:"the independent"}[r.status])}<br>${esc(r.leader||"")} ${esc(r.margin||"")} est. final${r.pctIn?` · ${esc(r.pctIn)} of votes in`:""}`;
+  tipEl.hidden = false;
+  tipEl.style.left = Math.min(e.clientX + 14, innerWidth - tipEl.offsetWidth - 8) + "px";
+  tipEl.style.top = Math.min(e.clientY + 14, innerHeight - tipEl.offsetHeight - 8) + "px";
+});
+$("rows").addEventListener("pointerleave", () => tipEl.hidden = true);
+
+// paste parser (NYT "Show all races" table)
+function parsePaste(text){
+  const out = new Map(); let asOf = "";
+  const m = text.match(/Last updated\s+([\d:]+\s*[ap]\.m\.)\s*E\.?T\.?/i); if (m) asOf = m[1] + " ET";
+  const names = Object.keys(STATES).sort((a,b)=>b.length-a.length).map(s=>s.replace(/\./g,"\\.")).join("|");
+  const re = new RegExp(`(?:^|\\s)(${names})\\s*(?:[*†]\\s*)*\\s(>95%|<1%|\\d+%)\\s(?:(>95%|<5%|\\d+%|Even)\\s)?(Dem\\.|Rep\\.|Ind\\.)\\s(\\S+(?: \\S+){0,2}?)\\s([+-]?\\d+(?:\\.\\d+)?)(?=\\s|$)`, "g");
+  const races = state().races;
+  for (const g of text.replace(/\s+/g, " ").matchAll(re)){
+    const st = STATES[g[1]]; if (!st || !races[st]) continue;
+    const party = g[4][0], lead = g[5], mg = parseFloat(g[6]);
+    const rec = { pctIn:g[2], margin:`${party} +${mg}`, marginD: party==="R" ? -mg : mg, leaderParty:party };
+    if (lead && lead.length > 1) rec.leader = `${lead} (${party})`;
+    if (g[3]){
+      const v = g[3]==="Even" ? 50 : g[3]===">95%" ? 97 : g[3]==="<5%" ? 3 : parseInt(g[3]);
+      rec.prob = party==="R" ? 100 - v : v; rec.status = "open";
+    } else { rec.status = party; rec.prob = party==="R" ? 0 : 100; }
+    out.set(st, rec);
+  }
+  return {out, asOf};
+}
+$("paste").addEventListener("input", () => {
+  const {out, asOf} = parsePaste($("paste").value);
+  const races = state().races, lines = [];
+  out.forEach((rec, st) => {
+    const cur = races[st], ch = [];
+    if (cur.status !== rec.status) ch.push(`${cur.status==="open"?"open":"called "+cur.status} → ${rec.status==="open"?"open":"called "+rec.status}`);
+    if (rec.status==="open" && Math.round(cur.prob) !== Math.round(rec.prob)) ch.push(`${fmtP(cur.prob)} → ${fmtP(rec.prob)}`);
+    if (cur.pctIn !== rec.pctIn) ch.push(`${rec.pctIn} in`);
+    if (ch.length) lines.push(`${cur.label.padEnd(8)} ${ch.join(" · ")}`);
+  });
+  pending = out.size ? {out, asOf} : null;
+  $("preview").hidden = !out.size;
+  $("preview").textContent = out.size ? `${out.size} races recognized${asOf?" · data as of "+asOf:""}\n${lines.length ? lines.join("\n") : "No changes from what's shown."}` : "";
+  $("apply").disabled = !pending;
+  $("apply-msg").textContent = out.size || !$("paste").value.trim() ? "" : "No race lines recognized. Copy the Show-all-races table from the NYT forecast page.";
+});
+$("apply").addEventListener("click", () => {
+  if (!pending) return;
+  const d = ensureDraft(); let n = 0;
+  pending.out.forEach((rec, st) => {
+    const cur = d.races[st];
+    if (Object.keys(rec).some(k => cur[k] !== rec[k])){ d.races[st] = {...cur, ...rec, updatedAt:new Date().toISOString()}; n++; }
+  });
+  d.meta = {...d.meta, asOf: pending.asOf || new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York"}).toLowerCase().replace(/(am|pm)$/, s => s[0]+".m.") + " ET", updatedAt:new Date().toISOString()};
+  saveDraft(); render();
+  $("apply-msg").textContent = `Updated ${n} race${n===1?"":"s"} here. Publish to update the live site.`;
+  $("paste").value = ""; $("preview").hidden = true; pending = null; $("apply").disabled = true;
+});
+
+// draft bar + publishing via the GitHub contents API
+function updateDraftBar(){
+  $("draftbar").hidden = !draft;
+  $("gh-token").hidden = !!store.get("senate51.ghToken");
+}
+$("discard").addEventListener("click", () => { draft = null; saveDraft(); render(); });
+function b64(s){ const bytes = new TextEncoder().encode(s); let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b)); return btoa(bin); }
+$("publish").addEventListener("click", async () => {
+  if (!draft) return;
+  const typed = $("gh-token").value.trim(); if (typed) store.set("senate51.ghToken", typed);
+  const token = store.get("senate51.ghToken") || typed;
+  const msg = $("draft-msg");
+  if (!token){ $("gh-token").hidden = false; $("gh-token").focus(); msg.innerHTML = "<b>Paste a GitHub token</b> with Contents read/write on this repo, then Publish."; return; }
+  $("publish").disabled = true; msg.textContent = "Publishing…";
+  const api = `https://api.github.com/repos/${REPO.owner}/${REPO.repo}/contents/${REPO.path}`;
+  const headers = { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" };
+  try {
+    const cur = await fetch(`${api}?ref=${REPO.branch}`, {headers, cache:"no-store"});
+    if (cur.status === 401 || cur.status === 403){ store.set("senate51.ghToken", null); throw new Error("GitHub refused the token. Paste a new one with Contents read/write on this repo."); }
+    const sha = cur.ok ? (await cur.json()).sha : undefined;
+    const body = JSON.stringify({...draft, meta:{...draft.meta, updatedAt:new Date().toISOString()}}, null, 1);
+    const res = await fetch(api, { method:"PUT", headers, body: JSON.stringify({ message:`Update forecast (${draft.meta.asOf || "manual edit"})`, content:b64(body + "\n"), sha, branch:REPO.branch }) });
+    if (!res.ok){ const j = await res.json().catch(() => ({})); if (res.status === 401 || res.status === 403) store.set("senate51.ghToken", null); throw new Error(j.message || `GitHub returned ${res.status}`); }
+    published = JSON.parse(body); draft = null; saveDraft(); render();
+    $("stamp").textContent += " · Published. The live site picks it up in about a minute.";
+  } catch(err){
+    msg.innerHTML = `<b>Not published.</b> ${esc(err.message)}`; updateDraftBar();
+  } finally { $("publish").disabled = false; }
+});
+
+function setStamp(){
+  const m = meta();
+  $("stamp").textContent = m.asOf ? `NYT forecast as of ${m.asOf}${draft ? " (your unpublished edits)" : ""}` : "Waiting for race data";
+  $("dot").classList.toggle("idle", !m.asOf);
+}
+
+async function load(){
+  try {
+    const res = await fetch(`${REPO.path}?t=${Date.now()}`, {cache:"no-store"});
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    const changed = !published || JSON.stringify(data) !== JSON.stringify(published);
+    published = data;
+    if (draft && draft.meta?.updatedAt && data.meta?.updatedAt > draft.meta.updatedAt){
+      $("draft-msg").innerHTML = "<b>Unpublished changes</b> in this browser. Newer data has been published since; Discard to see it.";
+    }
+    if (changed && !draft) render();
+    if (!draft) setStamp();
+  } catch(e){
+    if (!published) { const el = $("empty"); if (el) el.textContent = "Couldn't load data/races.json. Reload to try again."; }
+  }
+}
+updateDraftBar(); render(); load(); setInterval(load, 60000);
+})();
+</script>
+</body>
+</html>
