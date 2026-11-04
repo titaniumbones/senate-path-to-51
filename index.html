@@ -69,7 +69,13 @@ header p{margin:8px 0 0;color:var(--muted);max-width:64ch}
 .seat.key{color:var(--fg);font-weight:600}
 .st{min-width:0;display:flex;flex-direction:column;line-height:1.2}
 .st b{font-weight:650;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.st span{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st a{color:inherit;text-decoration:none;align-self:flex-start;max-width:100%;border-radius:3px}
+.st a:hover b,.st a:focus-visible b{text-decoration:underline;text-underline-offset:2px}
+.st a:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.st b{display:inline-flex;align-items:baseline;gap:4px}
+.st .ext{font-size:11px;font-weight:500;color:var(--faint)}
+.st a:hover .ext{color:var(--dem)}
+.st > span{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar{position:relative;height:18px;display:flex;gap:2px;min-width:0}
 .bar .seg{height:100%;min-width:0}
 .bar .seg.D{background:var(--dem);border-radius:4px 0 0 4px}
@@ -189,7 +195,7 @@ body{margin:0}
   </details>
 
   <footer class="notes">
-    <span>Click any race to edit its chance or call it by hand. Edits stay in your browser until you publish them; the published version reloads every minute.</span>
+    <span>Click a state name to open its NYT race page, or anywhere else on the row to edit its chance or call it by hand. Edits stay in your browser until you publish them; the published version reloads every minute.</span>
     <span>Nebraska: Dan Osborn is an independent; his win chance is shown in ochre and counted on the Democratic side of the line. Untick it in the Nebraska editor to count it otherwise.</span>
     <span>“>95%” is stored as 97 and “&lt;5%” as 3 for ranking and the expected-seat sum. Ties are ordered by the NYT's estimated final margin.</span>
     <span>Source: <a href="https://www.nytimes.com/interactive/2026/11/03/us/elections/results-needle-senate-house-forecast.html" target="_blank" rel="noopener">NYT Live Forecast</a> and <a href="https://www.nytimes.com/interactive/2026/11/03/us/elections/results-senate.html" target="_blank" rel="noopener">Senate results</a>; race calls from the AP via the NYT.</span>
@@ -265,18 +271,22 @@ function render(){
       bar = `<div class="bar open"><div class="seg ${dCls}" style="width:calc(${p}% - 1px)"></div><div class="seg R" style="width:calc(${100-p}% - 1px)"></div><span class="half"></span></div>`;
     }
     const probTxt = called ? (r.status === "D" ? '<span class="d">Dem</span>' : r.status === "R" ? '<span class="r">Rep</span>' : 'Ind') : fmtP(p);
-    html.push(`<button class="row" data-st="${r.st}" aria-expanded="${openSt===r.st}">
+    html.push(`<div class="row" role="button" tabindex="0" data-st="${r.st}" aria-expanded="${openSt===r.st}" aria-label="Edit ${esc(r.name||r.label)}">
       <span class="seat num ${seatNo===51?"key":""}">${seatNo}</span>
-      <span class="st"><b>${esc(r.label)}${r.special?" †":""}</b><span>${esc(r.leader||"")}${r.margin?" "+esc(String(r.margin).replace(/^[DRI]\s*/,"")):""}${r.pctIn?" · "+esc(r.pctIn)+" in":""}</span></span>
+      <span class="st"><a href="${nytUrl(r)}" target="_blank" rel="noopener" title="Open the NYT ${esc(r.name||r.label)} Senate page"><b>${esc(r.label)}${r.special?" †":""}<span class="ext" aria-hidden="true">↗</span></b></a><span>${esc(r.leader||"")}${r.margin?" "+esc(String(r.margin).replace(/^[DRI]\s*/,"")):""}${r.pctIn?" · "+esc(r.pctIn)+" in":""}</span></span>
       ${bar}
       <span class="prob num ${called?"called":""}">${probTxt}</span>
-    </button>`);
+    </div>`);
     if (openSt === r.st) html.push(editorHTML(r));
     if (i === need-1) html.push(`<div class="control up" role="separator"><span>▲ 51 seats · Dem control</span><span class="right">Below the line: Rep. hold with 50 + VP</span></div>`);
   });
   $("rows").innerHTML = html.join("");
 }
 
+function nytUrl(r){
+  const slug = String(r.name || r.label).toLowerCase().replace(/[^a-z]+/g, "-");
+  return `https://www.nytimes.com/interactive/2026/11/03/us/elections/results-${slug}-us-senate${r.special ? "-special" : ""}.html`;
+}
 function editorHTML(r){
   const ind = r.challenger === "Ind.";
   return `<div class="editor" data-ed="${r.st}">
@@ -299,7 +309,12 @@ function signedMargin(m, r){
   return n;
 }
 
+$("rows").addEventListener("keydown", e => {
+  const row = e.target.closest(".row");
+  if (row && e.target === row && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); row.click(); }
+});
 $("rows").addEventListener("click", e => {
+  if (e.target.closest(".st a")) return;
   const row = e.target.closest(".row");
   if (row){ openSt = openSt === row.dataset.st ? null : row.dataset.st; render(); if (openSt) $("e-prob")?.focus(); return; }
   const ed = e.target.closest(".editor"); if (!ed) return;
